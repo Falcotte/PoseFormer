@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace AngryKoala.PoseForm
+namespace AngryKoala.PoseFormer
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(PoseFormCreator))]

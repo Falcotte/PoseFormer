@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace AngryKoala.PoseForm
+namespace AngryKoala.PoseFormer
 {
     public class PoseFormCreator : MonoBehaviour
     {

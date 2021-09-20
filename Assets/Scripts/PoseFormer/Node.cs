@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AngryKoala.PoseForm
+namespace AngryKoala.PoseFormer
 {
     [System.Serializable]
     public class Node
