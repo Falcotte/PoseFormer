@@ -20,15 +20,33 @@ namespace AngryKoala.PoseForm
             }
         }
 
-        public void Apply(Transform transform)
+        private bool CheckNodes(Transform transform)
         {
             Transform[] transforms = transform.GetComponentsInChildren<Transform>();
 
             for(int i = 0; i < transforms.Length; i++)
             {
-                transforms[i].localPosition = Nodes[i].LocalPosition;
-                transforms[i].localRotation = Nodes[i].LocalRotation;
-                transforms[i].localScale = Nodes[i].LocalScale;
+                if(transforms[i].childCount != Nodes[i].ChildCount)
+                {
+                    Debug.LogError($"Pose not compatible with {transform.name}");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void Apply(Transform transform)
+        {
+            if(CheckNodes(transform))
+            {
+                Transform[] transforms = transform.GetComponentsInChildren<Transform>();
+
+                for(int i = 0; i < transforms.Length; i++)
+                {
+                    transforms[i].localPosition = Nodes[i].LocalPosition;
+                    transforms[i].localRotation = Nodes[i].LocalRotation;
+                    transforms[i].localScale = Nodes[i].LocalScale;
+                }
             }
         }
     }
