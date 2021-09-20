@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace AngryKoala.PoseForm
 {
@@ -49,5 +50,29 @@ namespace AngryKoala.PoseForm
                 }
             }
         }
+
+        #region DOTween
+
+        public void Apply(Transform transform, float duration, float delay = 0f, Ease ease = Ease.Linear)
+        {
+            if(CheckNodes(transform))
+            {
+                Transform[] transforms = transform.GetComponentsInChildren<Transform>();
+
+                for(int i = 0; i < transforms.Length; i++)
+                {
+                    AdjustTransform(transforms[i], Nodes[i], duration, i * delay, ease);
+                }
+            }
+        }
+
+        private void AdjustTransform(Transform transform, Node node, float duration, float delay, Ease ease)
+        {
+            transform.DOLocalMove(node.LocalPosition, duration).SetDelay(delay).SetEase(ease);
+            transform.DOLocalRotateQuaternion(node.LocalRotation, duration).SetDelay(delay).SetEase(ease);
+            transform.DOScale(node.LocalScale, duration).SetDelay(delay).SetEase(ease);
+        }
+
+        #endregion
     }
 }
