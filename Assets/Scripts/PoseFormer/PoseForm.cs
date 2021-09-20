@@ -44,6 +44,8 @@ namespace AngryKoala.PoseFormer
 
                 for(int i = 0; i < transforms.Length; i++)
                 {
+                    DOTween.Kill(transforms[i]);
+
                     transforms[i].localPosition = Nodes[i].LocalPosition;
                     transforms[i].localRotation = Nodes[i].LocalRotation;
                     transforms[i].localScale = Nodes[i].LocalScale;
