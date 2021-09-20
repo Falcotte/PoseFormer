@@ -29,7 +29,7 @@ namespace AngryKoala.PoseForm
             {
                 if(transforms[i].childCount != Nodes[i].ChildCount)
                 {
-                    Debug.LogError($"Pose not compatible with {transform.name}");
+                    Debug.LogError($"Pose not compatible with {transform.name} hierarchy");
                     return false;
                 }
             }
@@ -68,6 +68,8 @@ namespace AngryKoala.PoseForm
 
         private void AdjustTransform(Transform transform, Node node, float duration, float delay, Ease ease)
         {
+            DOTween.Kill(transform);
+
             transform.DOLocalMove(node.LocalPosition, duration).SetDelay(delay).SetEase(ease);
             transform.DOLocalRotateQuaternion(node.LocalRotation, duration).SetDelay(delay).SetEase(ease);
             transform.DOScale(node.LocalScale, duration).SetDelay(delay).SetEase(ease);
