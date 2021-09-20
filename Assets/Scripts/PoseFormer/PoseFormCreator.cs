@@ -4,7 +4,7 @@ using NaughtyAttributes;
 
 namespace AngryKoala.PoseForm
 {
-    public class PoseFormer : MonoBehaviour
+    public class PoseFormCreator : MonoBehaviour
     {
         [SerializeField] private string poseFormPath = "Assets";
 

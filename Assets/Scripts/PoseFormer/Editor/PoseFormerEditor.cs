@@ -4,7 +4,7 @@ using UnityEditor;
 namespace AngryKoala.PoseForm
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(PoseFormer))]
+    [CustomEditor(typeof(PoseFormCreator))]
     public class PoseFormerEditor : Editor
     {
         [MenuItem("GameObject/PoseForm/Create PoseForm", false, 12)]
@@ -12,10 +12,10 @@ namespace AngryKoala.PoseForm
         {
             foreach(var selected in Selection.gameObjects)
             {
-                PoseFormer poseFormer = selected.AddComponent<PoseFormer>();
+                PoseFormCreator poseFormCreator = selected.AddComponent<PoseFormCreator>();
 
-                poseFormer.CreatePoseForm();
-                DestroyImmediate(poseFormer);
+                poseFormCreator.CreatePoseForm();
+                DestroyImmediate(poseFormCreator);
             }
         }
 
