@@ -19,5 +19,17 @@ namespace AngryKoala.PoseForm
                 nodes.Add(node);
             }
         }
+
+        public void Apply(Transform transform)
+        {
+            Transform[] transforms = transform.GetComponentsInChildren<Transform>();
+
+            for(int i = 0; i < transforms.Length; i++)
+            {
+                transforms[i].localPosition = Nodes[i].LocalPosition;
+                transforms[i].localRotation = Nodes[i].LocalRotation;
+                transforms[i].localScale = Nodes[i].LocalScale;
+            }
+        }
     }
 }
