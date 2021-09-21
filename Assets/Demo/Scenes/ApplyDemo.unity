@@ -412,8 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1317250364e20354d8a04449b2249a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPose: {fileID: 11400000, guid: 261decee165b6cf47873b304efeb652c, type: 2}
-  idlePose: {fileID: 11400000, guid: 29af5ba4cc825e54abf4a99a9cc53e9e, type: 2}
+  poseFormT: {fileID: 11400000, guid: 261decee165b6cf47873b304efeb652c, type: 2}
+  poseFormIdle: {fileID: 11400000, guid: 29af5ba4cc825e54abf4a99a9cc53e9e, type: 2}
 --- !u!1001 &4328094837376992565
 PrefabInstance:
   m_ObjectHideFlags: 0
