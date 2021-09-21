@@ -36,6 +36,25 @@ namespace AngryKoala.PoseFormer
             return true;
         }
 
+        public void Transition(Transform transform, PoseForm poseForm, float percentage)
+        {
+            if(CheckNodes(transform, this) && CheckNodes(transform, poseForm))
+            {
+                percentage = Mathf.Clamp01(percentage);
+
+                Transform[] transforms = transform.GetComponentsInChildren<Transform>();
+
+                for(int i = 0; i < transforms.Length; i++)
+                {
+                    DOTween.Kill(transforms[i]);
+
+                    transforms[i].localPosition = Vector3.Lerp(Nodes[i].LocalPosition, poseForm.Nodes[i].LocalPosition, percentage);
+                    transforms[i].localRotation = Quaternion.Lerp(Nodes[i].LocalRotation, poseForm.Nodes[i].LocalRotation, percentage);
+                    transforms[i].localScale = Vector3.Lerp(Nodes[i].LocalScale, poseForm.Nodes[i].LocalScale, percentage);
+                }
+            }
+        }
+
         public void Apply(Transform transform)
         {
             if(CheckNodes(transform, this))
@@ -63,18 +82,38 @@ namespace AngryKoala.PoseFormer
 
                 for(int i = 0; i < transforms.Length; i++)
                 {
-                    AdjustTransform(transforms[i], Nodes[i], duration, i * delay, ease);
+                    AdjustTransform(transforms[i], Nodes[i].LocalPosition, Nodes[i].LocalRotation, Nodes[i].LocalScale, duration, i * delay, ease);
                 }
             }
         }
 
-        private void AdjustTransform(Transform transform, Node node, float duration, float delay, Ease ease)
+        public void Transition(Transform transform, PoseForm poseForm, float percentage, float duration, float delay = 0f, Ease ease = Ease.Linear)
+        {
+            if(CheckNodes(transform, this) && CheckNodes(transform, poseForm))
+            {
+                percentage = Mathf.Clamp01(percentage);
+
+                Transform[] transforms = transform.GetComponentsInChildren<Transform>();
+
+                for(int i = 0; i < transforms.Length; i++)
+                {
+                    DOTween.Kill(transforms[i]);
+
+                    AdjustTransform(transforms[i], Vector3.Lerp(Nodes[i].LocalPosition, poseForm.Nodes[i].LocalPosition, percentage),
+                        Quaternion.Lerp(Nodes[i].LocalRotation, poseForm.Nodes[i].LocalRotation, percentage),
+                        Vector3.Lerp(Nodes[i].LocalScale, poseForm.Nodes[i].LocalScale, percentage),
+                        duration, i * delay, ease);
+                }
+            }
+        }
+
+        private void AdjustTransform(Transform transform, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, float duration, float delay, Ease ease)
         {
             DOTween.Kill(transform);
 
-            transform.DOLocalMove(node.LocalPosition, duration).SetDelay(delay).SetEase(ease);
-            transform.DOLocalRotateQuaternion(node.LocalRotation, duration).SetDelay(delay).SetEase(ease);
-            transform.DOScale(node.LocalScale, duration).SetDelay(delay).SetEase(ease);
+            transform.DOLocalMove(localPosition, duration).SetDelay(delay).SetEase(ease);
+            transform.DOLocalRotateQuaternion(localRotation, duration).SetDelay(delay).SetEase(ease);
+            transform.DOScale(localScale, duration).SetDelay(delay).SetEase(ease);
         }
 
         #endregion

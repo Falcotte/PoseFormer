@@ -7,6 +7,12 @@ public class PoseFormerDemo : MonoBehaviour
 {
     [SerializeField] private PoseForm defaultPose;
     [SerializeField] private PoseForm idlePose;
+    [SerializeField] [Range(0, 1)] private float percentage;
+
+    private void Update()
+    {
+        //defaultPose.Transition(transform, idlePose, percentage);
+    }
 
     public void GoToDefaultPose()
     {
@@ -15,6 +21,6 @@ public class PoseFormerDemo : MonoBehaviour
 
     public void GoToIdlePose()
     {
-        idlePose.Apply(transform, 1f);
+        defaultPose.Transition(transform, idlePose, .5f, 2f);
     }
 }
