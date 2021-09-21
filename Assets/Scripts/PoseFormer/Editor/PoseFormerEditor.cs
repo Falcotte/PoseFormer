@@ -27,7 +27,7 @@ namespace AngryKoala.PoseFormer
 
             var selected = Selection.activeGameObject;
 
-            if(selected.GetComponent<Transform>() == null)
+            if(selected == null || selected.GetComponent<Transform>() == null)
             {
                 return false;
             }
