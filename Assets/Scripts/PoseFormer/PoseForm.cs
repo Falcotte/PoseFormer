@@ -21,13 +21,13 @@ namespace AngryKoala.PoseFormer
             }
         }
 
-        private bool CheckNodes(Transform transform)
+        private bool CheckNodes(Transform transform, PoseForm poseForm)
         {
             Transform[] transforms = transform.GetComponentsInChildren<Transform>();
 
             for(int i = 0; i < transforms.Length; i++)
             {
-                if(transforms[i].childCount != Nodes[i].ChildCount)
+                if(transforms[i].childCount != poseForm.Nodes[i].ChildCount)
                 {
                     Debug.LogError($"Pose not compatible with {transform.name} hierarchy");
                     return false;
@@ -38,7 +38,7 @@ namespace AngryKoala.PoseFormer
 
         public void Apply(Transform transform)
         {
-            if(CheckNodes(transform))
+            if(CheckNodes(transform, this))
             {
                 Transform[] transforms = transform.GetComponentsInChildren<Transform>();
 
@@ -57,7 +57,7 @@ namespace AngryKoala.PoseFormer
 
         public void Apply(Transform transform, float duration, float delay = 0f, Ease ease = Ease.Linear)
         {
-            if(CheckNodes(transform))
+            if(CheckNodes(transform, this))
             {
                 Transform[] transforms = transform.GetComponentsInChildren<Transform>();
 
