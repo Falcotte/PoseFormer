@@ -13,7 +13,7 @@ namespace AngryKoala.PoseFormer
         {
             nodes.Clear();
 
-            foreach(var child in transform.GetComponentsInChildren<Transform>())
+            foreach(var child in transform.GetComponentsInChildren<Transform>(true))
             {
                 Node node = new Node();
                 node.SetNode(child);
