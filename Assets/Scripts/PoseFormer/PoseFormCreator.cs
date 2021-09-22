@@ -22,12 +22,12 @@ namespace AngryKoala.PoseFormer
 
             if(System.IO.Directory.Exists(PoseFormPath))
             {
-                path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"{PoseFormPath}/PoseForm.asset");
+                path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"{PoseFormPath}/{transform.name}_PoseForm.asset");
             }
             else
             {
                 Debug.LogWarning("Invalid path, saving PoseForm to /Assets folder");
-                path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath("Assets/PoseForm.asset");
+                path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"Assets/{transform.name}_PoseForm.asset");
             }
 
             AssetDatabase.CreateAsset(poseForm, path);

@@ -9,27 +9,33 @@ namespace AngryKoala.PoseFormer
         [MenuItem("GameObject/PoseForm/Create PoseForm", false, 12)]
         private static void CreatePoseForm()
         {
-            var selected = Selection.activeGameObject;
+            var selectedObjects = Selection.transforms;
 
-            PoseFormCreator poseFormCreator = selected.AddComponent<PoseFormCreator>();
+            foreach(var selectedObject in selectedObjects)
+            {
+                PoseFormCreator poseFormCreator = selectedObject.gameObject.AddComponent<PoseFormCreator>();
 
-            poseFormCreator.CreatePoseForm();
-            DestroyImmediate(poseFormCreator);
+                poseFormCreator.CreatePoseForm();
+                DestroyImmediate(poseFormCreator);
+            }
         }
 
         [MenuItem("GameObject/PoseForm/Create PoseForm", true)]
         private static bool CreatePoseFormValidation()
         {
-            if(Selection.gameObjects.Length > 1)
+            var selectedObjects = Selection.transforms;
+
+            if(selectedObjects.Length == 0)
             {
                 return false;
             }
 
-            var selected = Selection.activeGameObject;
-
-            if(selected == null || selected.GetComponent<Transform>() == null)
+            foreach(var selectedObject in selectedObjects)
             {
-                return false;
+                if(selectedObject == null)
+                {
+                    return false;
+                }
             }
             return true;
         }
