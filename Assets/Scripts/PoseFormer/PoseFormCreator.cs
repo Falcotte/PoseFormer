@@ -11,6 +11,7 @@ namespace AngryKoala.PoseFormer
 
         private string PoseFormPath => PlayerPrefs.GetString(PathKey, "Assets");
 
+        // Can also be extended to create PoseForms at runtime
         public void CreatePoseForm()
         {
 #if UNITY_EDITOR

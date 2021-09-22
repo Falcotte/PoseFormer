@@ -58,6 +58,8 @@ namespace AngryKoala.PoseFormer
 
         #region DOTween
 
+        // This should go without saying, but these methods are not intended to be called repeatedly (as in Update())
+
         public static void Apply(Transform transform, PoseForm poseForm, float duration, float delay = 0f, Ease ease = Ease.Linear)
         {
             if(CheckNodes(transform, poseForm))
