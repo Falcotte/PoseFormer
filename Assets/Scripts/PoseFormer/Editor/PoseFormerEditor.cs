@@ -7,7 +7,7 @@ namespace AngryKoala.PoseFormer
     public class PoseFormerEditor : Editor
     {
         [MenuItem("GameObject/PoseForm/Create PoseForm", false, 12)]
-        private static void CreatePoseForm()
+        public static void CreatePoseForm()
         {
             var selectedObjects = Selection.transforms;
 
@@ -21,7 +21,7 @@ namespace AngryKoala.PoseFormer
         }
 
         [MenuItem("GameObject/PoseForm/Create PoseForm", true)]
-        private static bool CreatePoseFormValidation()
+        public static bool CreatePoseFormValidation()
         {
             var selectedObjects = Selection.transforms;
 

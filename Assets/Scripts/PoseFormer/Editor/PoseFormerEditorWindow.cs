@@ -10,7 +10,7 @@ namespace AngryKoala.PoseFormer
         [MenuItem("Angry Koala/PoseFormer")]
         private static void OpenWindow()
         {
-            GetWindow<PoseFormerEditorWindow>(title: "PoseFormer Settings").Show();
+            GetWindow<PoseFormerEditorWindow>(title: "PoseFormer").Show();
         }
 
         private void Awake()
@@ -18,7 +18,7 @@ namespace AngryKoala.PoseFormer
             path = PlayerPrefs.GetString(PoseFormCreator.PathKey, "Assets");
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             EditorGUILayout.HelpBox("The path where newly created PoseForms will be saved, if the path is invalid," +
                 " PoseForms will be saved in the /Assets folder", MessageType.Info);
@@ -30,6 +30,13 @@ namespace AngryKoala.PoseFormer
                 PlayerPrefs.SetString(PoseFormCreator.PathKey, path);
 
                 Debug.Log($"PoseForm path set to -> {path}");
+            }
+
+            GUI.enabled = PoseFormerEditor.CreatePoseFormValidation();
+
+            if(GUILayout.Button("Create PoseForm", GUILayout.Height(42)))
+            {
+                PoseFormerEditor.CreatePoseForm();
             }
         }
     }
