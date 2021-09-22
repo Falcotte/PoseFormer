@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(TransitionDemo))]
-public class TransitionDemoEditor : Editor
+[CustomEditor(typeof(BlendDemo))]
+public class BlendDemoEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        TransitionDemo poseFormerDemo = (TransitionDemo)target;
+        BlendDemo poseFormerDemo = (BlendDemo)target;
 
         DrawDefaultInspector();
 

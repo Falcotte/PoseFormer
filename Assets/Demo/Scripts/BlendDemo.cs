@@ -1,7 +1,7 @@
 using UnityEngine;
 using AngryKoala.PoseFormer;
 
-public class TransitionDemo : MonoBehaviour
+public class BlendDemo : MonoBehaviour
 {
     [SerializeField] private PoseForm poseFormT;
     [SerializeField] private PoseForm poseFormIdle;
@@ -11,6 +11,6 @@ public class TransitionDemo : MonoBehaviour
 
     public void TransitionFromPoseFormTToPoseFormIdle()
     {
-        PoseFormer.Transition(transform, poseFormT, poseFormIdle, percentage);
+        PoseFormer.Blend(transform, poseFormT, poseFormIdle, percentage);
     }
 }

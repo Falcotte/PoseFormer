@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -39,7 +37,7 @@ namespace AngryKoala.PoseFormer
             }
         }
 
-        public static void Transition(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage)
+        public static void Blend(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage)
         {
             if(CheckNodes(transform, initialPoseForm) && CheckNodes(transform, finalPoseForm))
             {
@@ -73,7 +71,7 @@ namespace AngryKoala.PoseFormer
             }
         }
 
-        public static void Transition(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage, float duration, float delay = 0f, Ease ease = Ease.Linear)
+        public static void Blend(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage, float duration, float delay = 0f, Ease ease = Ease.Linear)
         {
             if(CheckNodes(transform, initialPoseForm) && CheckNodes(transform, finalPoseForm))
             {
