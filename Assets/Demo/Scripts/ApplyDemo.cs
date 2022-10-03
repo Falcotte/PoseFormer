@@ -17,6 +17,6 @@ public class ApplyDemo : MonoBehaviour
     {
         PoseForm poseForm = PoseFormer.Create(visual, false);
 
-        PoseFormer.Apply(otherVisual, poseForm, .2f, includeBaseTransformValues: false);
+        PoseFormer.Apply(otherVisual, poseForm, .05f, includeBaseTransformValues: false);
     }
 }
