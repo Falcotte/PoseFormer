@@ -8,11 +8,17 @@ namespace AngryKoala.PoseFormer
         public const string PathKey = "PoseFormPath";
         public static string PoseFormPath => PlayerPrefs.GetString(PathKey, "Assets");
 
-        public static PoseForm Create(this Transform transform)
+        /// <summary>
+        /// Creating poseforms with base transform values may not always be desirable. Use the optional parameter if you want the initial node of your poseform to have the default values.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="includeBaseTransformValues"></param>
+        /// <returns></returns>
+        public static PoseForm Create(this Transform transform, bool includeBaseTransformValues = true)
         {
             PoseForm poseForm = ScriptableObject.CreateInstance<PoseForm>();
 
-            poseForm.SetNodes(transform);
+            poseForm.SetNodes(transform, includeBaseTransformValues);
 
             return poseForm;
         }

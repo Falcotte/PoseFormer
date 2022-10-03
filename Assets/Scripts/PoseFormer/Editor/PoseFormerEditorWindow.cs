@@ -38,6 +38,13 @@ namespace AngryKoala.PoseFormer
             {
                 PoseFormerEditor.SavePoseForm();
             }
+
+            GUI.enabled = PoseFormerEditor.SavePoseFormWithoutBaseTransformValuesValidation();
+
+            if(GUILayout.Button("Save PoseForm With Base Position", GUILayout.Height(42)))
+            {
+                PoseFormerEditor.SavePoseFormWithoutBaseTransformValues();
+            }
         }
     }
 }

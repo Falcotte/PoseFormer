@@ -19,13 +19,13 @@ namespace AngryKoala.PoseFormer
         [SerializeField] [HideInInspector] private int childCount;
         public int ChildCount => childCount;
 
-        public void SetNode(Transform transform)
+        public void SetNode(Transform transform, bool setValues = true)
         {
             name = transform.name;
 
-            localPosition = transform.localPosition;
-            localRotation = transform.localRotation;
-            localScale = transform.localScale;
+            localPosition = setValues ? transform.localPosition : Vector3.zero;
+            localRotation = setValues ? transform.localRotation : Quaternion.identity;
+            localScale = setValues ? transform.localScale : Vector3.one;
 
             childCount = transform.childCount;
         }

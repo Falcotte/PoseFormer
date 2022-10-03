@@ -8,14 +8,25 @@ namespace AngryKoala.PoseFormer
         [SerializeField] private List<Node> nodes = new List<Node>();
         public List<Node> Nodes => nodes;
 
-        public void SetNodes(Transform transform)
+        public void SetNodes(Transform transform, bool setValues)
         {
             nodes.Clear();
 
-            foreach(var child in transform.GetComponentsInChildren<Transform>(true))
+            Transform[] transforms = transform.GetComponentsInChildren<Transform>(true);
+
+            for(int i = 0; i < transforms.Length; i++)
             {
                 Node node = new Node();
-                node.SetNode(child);
+
+                if(i == 0)
+                {
+                    node.SetNode(transforms[i], setValues);
+                }
+                else
+                {
+                    node.SetNode(transforms[i]);
+                }
+
                 nodes.Add(node);
             }
         }
