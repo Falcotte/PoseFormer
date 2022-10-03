@@ -3,16 +3,20 @@ using AngryKoala.PoseFormer;
 
 public class ApplyDemo : MonoBehaviour
 {
-    [SerializeField] private PoseForm poseFormT;
-    [SerializeField] private PoseForm poseFormIdle;
+    [SerializeField] private Transform visual;
+    [SerializeField] private Transform otherVisual;
 
-    public void ApplyPoseFormT()
+    [SerializeField] private PoseForm otherVisualInitialPose;
+
+    private void Start()
     {
-        PoseFormer.Apply(transform, poseFormT);
+        PoseFormer.Apply(otherVisual, otherVisualInitialPose, false);
     }
 
-    public void ApplyPoseFormIdle()
+    public void ApplyPoseForm()
     {
-        PoseFormer.Apply(transform, poseFormIdle);
+        PoseForm poseForm = PoseFormer.Create(visual, false);
+
+        PoseFormer.Apply(otherVisual, poseForm, .2f, includeBaseTransformValues: false);
     }
 }
