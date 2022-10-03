@@ -8,6 +8,9 @@ namespace AngryKoala.PoseFormer
         public const string PathKey = "PoseFormPath";
         public static string PoseFormPath => PlayerPrefs.GetString(PathKey, "Assets");
 
+        private static PoseForm copiedPoseForm;
+        public static PoseForm CopiedPoseForm => copiedPoseForm;
+
         /// <summary>
         /// Creating poseforms with base transform values may not always be desirable. Use the optional parameter if you want the initial node of your poseform to have the default values.
         /// </summary>
@@ -167,6 +170,11 @@ namespace AngryKoala.PoseFormer
                     }
                 }
             }
+        }
+
+        public static void CopyPoseForm(PoseForm poseForm)
+        {
+            copiedPoseForm = poseForm;
         }
 
         #region DOTween

@@ -105,5 +105,37 @@ namespace AngryKoala.PoseFormer
             }
             return true;
         }
+
+        [MenuItem("GameObject/Angry Koala/PoseForm/Copy PoseForm", false, 12)]
+        public static void CopyPoseForm()
+        {
+            var selectedObjects = Selection.transforms;
+
+            foreach(var selectedObject in selectedObjects)
+            {
+                PoseForm poseForm = PoseFormer.Create(selectedObject.transform);
+                PoseFormer.CopyPoseForm(poseForm);
+            }
+        }
+
+        [MenuItem("GameObject/Angry Koala/PoseForm/Copy PoseForm", true)]
+        public static bool CopyPoseFormValidation()
+        {
+            var selectedObjects = Selection.transforms;
+
+            if(selectedObjects.Length == 0 || selectedObjects.Length > 1)
+            {
+                return false;
+            }
+
+            foreach(var selectedObject in selectedObjects)
+            {
+                if(selectedObject == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
