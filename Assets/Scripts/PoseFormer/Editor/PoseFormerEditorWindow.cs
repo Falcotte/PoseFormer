@@ -15,7 +15,7 @@ namespace AngryKoala.PoseFormer
 
         private void Awake()
         {
-            path = PlayerPrefs.GetString(PoseFormCreator.PathKey, "Assets");
+            path = PlayerPrefs.GetString(PoseFormer.PathKey, "Assets");
         }
 
         private void OnGUI()
@@ -27,16 +27,16 @@ namespace AngryKoala.PoseFormer
 
             if(GUILayout.Button("Set Path"))
             {
-                PlayerPrefs.SetString(PoseFormCreator.PathKey, path);
+                PlayerPrefs.SetString(PoseFormer.PathKey, path);
 
                 Debug.Log($"PoseForm path set to -> {path}");
             }
 
-            GUI.enabled = PoseFormerEditor.CreatePoseFormValidation();
+            GUI.enabled = PoseFormerEditor.SavePoseFormValidation();
 
-            if(GUILayout.Button("Create PoseForm", GUILayout.Height(42)))
+            if(GUILayout.Button("Save PoseForm", GUILayout.Height(42)))
             {
-                PoseFormerEditor.CreatePoseForm();
+                PoseFormerEditor.SavePoseForm();
             }
         }
     }

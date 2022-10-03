@@ -1,23 +1,43 @@
 using UnityEditor;
+using UnityEngine;
 
 namespace AngryKoala.PoseFormer
 {
-    [CustomEditor(typeof(PoseFormCreator))]
+    [CustomEditor(typeof(PoseFormer))]
     public class PoseFormerEditor : Editor
     {
-        [MenuItem("GameObject/Angry Koala/PoseForm/Create PoseForm", false, 12)]
-        public static void CreatePoseForm()
+        [MenuItem("GameObject/Angry Koala/PoseForm/Save PoseForm", false, 12)]
+        public static void SavePoseForm()
         {
             var selectedObjects = Selection.transforms;
 
             foreach(var selectedObject in selectedObjects)
             {
-                PoseFormCreator.CreatePoseForm(selectedObject.transform);
+                PoseForm poseForm = PoseFormer.Create(selectedObject.transform);
+
+                string path = "";
+
+                if(System.IO.Directory.Exists(PoseFormer.PoseFormPath))
+                {
+                    path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"{PoseFormer.PoseFormPath}/{selectedObject.transform.name}_PoseForm.asset");
+                }
+                else
+                {
+                    Debug.LogWarning("Invalid path, saving PoseForm to /Assets folder");
+                    path = UnityEditor.AssetDatabase.GenerateUniqueAssetPath($"Assets/{selectedObject.transform.name}_PoseForm.asset");
+                }
+
+                AssetDatabase.CreateAsset(poseForm, path);
+                AssetDatabase.SaveAssets();
+
+                EditorUtility.FocusProjectWindow();
+
+                Selection.activeObject = poseForm;
             }
         }
 
-        [MenuItem("GameObject/Angry Koala/PoseForm/Create PoseForm", true)]
-        public static bool CreatePoseFormValidation()
+        [MenuItem("GameObject/Angry Koala/PoseForm/Save PoseForm", true)]
+        public static bool SavePoseFormValidation()
         {
             var selectedObjects = Selection.transforms;
 

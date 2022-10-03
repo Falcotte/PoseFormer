@@ -5,7 +5,19 @@ namespace AngryKoala.PoseFormer
 {
     public static class PoseFormer
     {
-        public static bool CheckNodes(Transform transform, PoseForm poseForm)
+        public const string PathKey = "PoseFormPath";
+        public static string PoseFormPath => PlayerPrefs.GetString(PathKey, "Assets");
+
+        public static PoseForm Create(this Transform transform)
+        {
+            PoseForm poseForm = ScriptableObject.CreateInstance<PoseForm>();
+
+            poseForm.SetNodes(transform);
+
+            return poseForm;
+        }
+
+        private static bool CheckNodes(Transform transform, PoseForm poseForm)
         {
             Transform[] transforms = transform.GetComponentsInChildren<Transform>();
 
