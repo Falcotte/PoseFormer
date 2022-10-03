@@ -5,14 +5,14 @@ using UnityEditor;
 
 namespace AngryKoala.PoseFormer
 {
-    public class PoseFormCreator : MonoBehaviour
+    public static class PoseFormCreator
     {
-        public static string PathKey = "PoseFormPath";
+        public const string PathKey = "PoseFormPath";
 
-        private string PoseFormPath => PlayerPrefs.GetString(PathKey, "Assets");
+        private static string PoseFormPath => PlayerPrefs.GetString(PathKey, "Assets");
 
         // Can also be extended to create PoseForms at runtime
-        public void CreatePoseForm()
+        public static void CreatePoseForm(this Transform transform)
         {
 #if UNITY_EDITOR
             PoseForm poseForm = ScriptableObject.CreateInstance<PoseForm>();
