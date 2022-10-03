@@ -41,7 +41,7 @@ namespace AngryKoala.PoseFormer
 
             GUI.enabled = PoseFormerEditor.SavePoseFormWithoutBaseTransformValuesValidation();
 
-            if(GUILayout.Button("Save PoseForm With Base Position", GUILayout.Height(42)))
+            if(GUILayout.Button("Save PoseForm Without Base Transform Values", GUILayout.Height(42)))
             {
                 PoseFormerEditor.SavePoseFormWithoutBaseTransformValues();
             }

@@ -38,7 +38,13 @@ namespace AngryKoala.PoseFormer
             return true;
         }
 
-        public static void Apply(Transform transform, PoseForm poseForm)
+        /// <summary>
+        /// Applying poseforms base transform values may not always be desirable. Use the optional parameter if you don't want to apply base transform values of your poseform to the transform.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="includeBaseTransformValues"></param>
+        /// <returns></returns>
+        public static void Apply(Transform transform, PoseForm poseForm, bool includeBaseTransformValues = true)
         {
             if(CheckNodes(transform, poseForm))
             {
@@ -48,14 +54,31 @@ namespace AngryKoala.PoseFormer
                 {
                     DOTween.Kill(transforms[i]);
 
-                    transforms[i].localPosition = poseForm.Nodes[i].LocalPosition;
-                    transforms[i].localRotation = poseForm.Nodes[i].LocalRotation;
-                    transforms[i].localScale = poseForm.Nodes[i].LocalScale;
+                    if(i == 0)
+                    {
+                        transforms[i].localPosition = includeBaseTransformValues ? poseForm.Nodes[i].LocalPosition : transforms[i].localPosition;
+                        transforms[i].localRotation = includeBaseTransformValues ? poseForm.Nodes[i].LocalRotation : transforms[i].localRotation;
+                        transforms[i].localScale = includeBaseTransformValues ? poseForm.Nodes[i].LocalScale : transforms[i].localScale;
+                    }
+                    else
+                    {
+                        transforms[i].localPosition = poseForm.Nodes[i].LocalPosition;
+                        transforms[i].localRotation = poseForm.Nodes[i].LocalRotation;
+                        transforms[i].localScale = poseForm.Nodes[i].LocalScale;
+                    }
                 }
             }
         }
 
-        public static void Blend(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage)
+        /// <summary>
+        /// Blending between poseforms with base transform values may not always be desirable. Use the optional parameter if you don't want to blend base transform values of your poseforms.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="initialPoseForm"></param>
+        /// <param name="finalPoseForm"></param>
+        /// <param name="percentage"></param>
+        /// <param name="includeBaseTransformValues"></param>
+        public static void Blend(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage, bool includeBaseTransformValues = true)
         {
             if(CheckNodes(transform, initialPoseForm) && CheckNodes(transform, finalPoseForm))
             {
@@ -67,9 +90,18 @@ namespace AngryKoala.PoseFormer
                 {
                     DOTween.Kill(transforms[i]);
 
-                    transforms[i].localPosition = Vector3.Lerp(initialPoseForm.Nodes[i].LocalPosition, finalPoseForm.Nodes[i].LocalPosition, percentage);
-                    transforms[i].localRotation = Quaternion.Lerp(initialPoseForm.Nodes[i].LocalRotation, finalPoseForm.Nodes[i].LocalRotation, percentage);
-                    transforms[i].localScale = Vector3.Lerp(initialPoseForm.Nodes[i].LocalScale, finalPoseForm.Nodes[i].LocalScale, percentage);
+                    if(i == 0)
+                    {
+                        transforms[i].localPosition = includeBaseTransformValues ? Vector3.Lerp(initialPoseForm.Nodes[i].LocalPosition, finalPoseForm.Nodes[i].LocalPosition, percentage) : transforms[i].localPosition;
+                        transforms[i].localRotation = includeBaseTransformValues ? Quaternion.Lerp(initialPoseForm.Nodes[i].LocalRotation, finalPoseForm.Nodes[i].LocalRotation, percentage) : transforms[i].localRotation;
+                        transforms[i].localScale = includeBaseTransformValues ? Vector3.Lerp(initialPoseForm.Nodes[i].LocalScale, finalPoseForm.Nodes[i].LocalScale, percentage) : transforms[i].localScale;
+                    }
+                    else
+                    {
+                        transforms[i].localPosition = Vector3.Lerp(initialPoseForm.Nodes[i].LocalPosition, finalPoseForm.Nodes[i].LocalPosition, percentage);
+                        transforms[i].localRotation = Quaternion.Lerp(initialPoseForm.Nodes[i].LocalRotation, finalPoseForm.Nodes[i].LocalRotation, percentage);
+                        transforms[i].localScale = Vector3.Lerp(initialPoseForm.Nodes[i].LocalScale, finalPoseForm.Nodes[i].LocalScale, percentage);
+                    }
                 }
             }
         }
@@ -78,7 +110,7 @@ namespace AngryKoala.PoseFormer
 
         // This should go without saying, but these methods are not intended to be called repeatedly (as in Update())
 
-        public static void Apply(Transform transform, PoseForm poseForm, float duration, float delay = 0f, Ease ease = Ease.Linear)
+        public static void Apply(Transform transform, PoseForm poseForm, float duration, float delay = 0f, Ease ease = Ease.Linear, bool includeBaseTransformValues = true)
         {
             if(CheckNodes(transform, poseForm))
             {
@@ -86,12 +118,19 @@ namespace AngryKoala.PoseFormer
 
                 for(int i = 0; i < transforms.Length; i++)
                 {
-                    AdjustTransform(transforms[i], poseForm.Nodes[i].LocalPosition, poseForm.Nodes[i].LocalRotation, poseForm.Nodes[i].LocalScale, duration, i * delay, ease);
+                    if(i == 0)
+                    {
+                        AdjustTransform(transforms[i], includeBaseTransformValues ? poseForm.Nodes[i].LocalPosition : transforms[i].localPosition, includeBaseTransformValues ? poseForm.Nodes[i].LocalRotation : transforms[i].localRotation, includeBaseTransformValues ? poseForm.Nodes[i].LocalScale : transforms[i].localScale, duration, i * delay, ease);
+                    }
+                    else
+                    {
+                        AdjustTransform(transforms[i], poseForm.Nodes[i].LocalPosition, poseForm.Nodes[i].LocalRotation, poseForm.Nodes[i].LocalScale, duration, i * delay, ease);
+                    }
                 }
             }
         }
 
-        public static void Blend(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage, float duration, float delay = 0f, Ease ease = Ease.Linear)
+        public static void Blend(Transform transform, PoseForm initialPoseForm, PoseForm finalPoseForm, float percentage, float duration, float delay = 0f, Ease ease = Ease.Linear, bool includeBaseTransformValues = true)
         {
             if(CheckNodes(transform, initialPoseForm) && CheckNodes(transform, finalPoseForm))
             {
@@ -103,10 +142,20 @@ namespace AngryKoala.PoseFormer
                 {
                     DOTween.Kill(transforms[i]);
 
-                    AdjustTransform(transforms[i], Vector3.Lerp(initialPoseForm.Nodes[i].LocalPosition, finalPoseForm.Nodes[i].LocalPosition, percentage),
-                        Quaternion.Lerp(initialPoseForm.Nodes[i].LocalRotation, finalPoseForm.Nodes[i].LocalRotation, percentage),
-                        Vector3.Lerp(initialPoseForm.Nodes[i].LocalScale, finalPoseForm.Nodes[i].LocalScale, percentage),
-                        duration, i * delay, ease);
+                    if(i == 0)
+                    {
+                        AdjustTransform(transforms[i], includeBaseTransformValues ? Vector3.Lerp(initialPoseForm.Nodes[i].LocalPosition, finalPoseForm.Nodes[i].LocalPosition, percentage) : transforms[i].localPosition,
+                            includeBaseTransformValues ? Quaternion.Lerp(initialPoseForm.Nodes[i].LocalRotation, finalPoseForm.Nodes[i].LocalRotation, percentage) : transforms[i].localRotation,
+                            includeBaseTransformValues ? Vector3.Lerp(initialPoseForm.Nodes[i].LocalScale, finalPoseForm.Nodes[i].LocalScale, percentage) : transforms[i].localScale,
+                            duration, i * delay, ease);
+                    }
+                    else
+                    {
+                        AdjustTransform(transforms[i], Vector3.Lerp(initialPoseForm.Nodes[i].LocalPosition, finalPoseForm.Nodes[i].LocalPosition, percentage),
+                            Quaternion.Lerp(initialPoseForm.Nodes[i].LocalRotation, finalPoseForm.Nodes[i].LocalRotation, percentage),
+                            Vector3.Lerp(initialPoseForm.Nodes[i].LocalScale, finalPoseForm.Nodes[i].LocalScale, percentage),
+                            duration, i * delay, ease);
+                    }
                 }
             }
         }
