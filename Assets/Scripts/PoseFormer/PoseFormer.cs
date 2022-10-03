@@ -177,6 +177,27 @@ namespace AngryKoala.PoseFormer
             copiedPoseForm = poseForm;
         }
 
+        public static void PastePoseForm(Transform transform)
+        {
+            if(copiedPoseForm == null)
+                return;
+
+            if(CheckNodes(transform, copiedPoseForm))
+            {
+                Transform[] transforms = transform.GetComponentsInChildren<Transform>();
+
+                for(int i = 0; i < transforms.Length; i++)
+                {
+                    if(i != 0)
+                    {
+                        transforms[i].localPosition = copiedPoseForm.Nodes[i].LocalPosition;
+                        transforms[i].localRotation = copiedPoseForm.Nodes[i].LocalRotation;
+                        transforms[i].localScale = copiedPoseForm.Nodes[i].LocalScale;
+                    }
+                }
+            }
+        }
+
         #region DOTween
 
         // This should go without saying, but these methods are not intended to be called repeatedly (as in Update())
