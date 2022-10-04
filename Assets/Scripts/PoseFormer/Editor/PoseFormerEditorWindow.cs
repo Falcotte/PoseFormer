@@ -52,6 +52,13 @@ namespace AngryKoala.PoseFormer
             {
                 PoseFormerEditor.CopyPoseForm();
             }
+
+            GUI.enabled = PoseFormerEditor.PastePoseFormValidation();
+
+            if(GUILayout.Button("Paste PoseForm", GUILayout.Height(42)))
+            {
+                PoseFormerEditor.PastePoseForm();
+            }
         }
     }
 }
