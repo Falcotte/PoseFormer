@@ -1,9 +1,9 @@
 # PoseFormer
 An editor tool that allows saving transform hierarchies for later use
 
-Can be used by right-clicking any transform in the hierarchy and selecting Create PoseForm
+Can be used by right-clicking any transform in the hierarchy and selecting Save PoseForm
 
-![Image](https://github.com/Falcotte/PoseFormer/blob/main/Assets/Screenshots/CreatePoseForm.png?raw=true)
+![Image](https://github.com/Falcotte/PoseFormer/blob/main/Assets/Screenshots/SavePoseForm.png?raw=true)
 
 Also can be used from an editor window, which can be accessed as such
 
