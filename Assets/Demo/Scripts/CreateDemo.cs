@@ -18,6 +18,6 @@ public class CreateDemo : MonoBehaviour
         character.Visual.position = visual.position;
 
         character.Visual.localScale = Vector3.zero;
-        character.Visual.DOScale(1f, .3f).SetEase(Ease.OutBack).SetDelay(.2f);
+        character.Visual.DOScale(1f, .3f).SetEase(Ease.OutBack).SetDelay(.1f);
     }
 }
