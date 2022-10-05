@@ -4,9 +4,9 @@ using AngryKoala.PoseFormer;
 
 public class BlendDemo : MonoBehaviour
 {
-    [SerializeField] private Transform guardLeft;
-    [SerializeField] private Transform guardRight;
-    [SerializeField] private Transform guardCenter;
+    [SerializeField] private Transform characterLeft;
+    [SerializeField] private Transform characterRight;
+    [SerializeField] private Transform character;
 
     [SerializeField] private PoseForm poseForm0;
     [SerializeField] private PoseForm poseForm1;
@@ -19,16 +19,16 @@ public class BlendDemo : MonoBehaviour
 
     private void Start()
     {
-        PoseFormer.Apply(guardLeft, poseForm0, false);
-        PoseFormer.Apply(guardRight, poseForm1, false);
+        PoseFormer.Apply(characterLeft, poseForm0, false);
+        PoseFormer.Apply(characterRight, poseForm1, false);
 
-        PoseFormer.Apply(guardCenter, poseForm0, false);
+        PoseFormer.Apply(character, poseForm0, false);
     }
 
     private void Update()
     {
         currentPercentage = Mathf.MoveTowards(currentPercentage, percentage, Time.deltaTime * 5f);
-        PoseFormer.Blend(guardCenter, poseForm0, poseForm1, currentPercentage, false);
+        PoseFormer.Blend(character, poseForm0, poseForm1, currentPercentage, false);
     }
 
     public void SetBlendPercentage(float percentage)
